@@ -1,6 +1,8 @@
 /*
  * VoltageDetector.c
  *
+ * Written for Atmel ATTiny 1606
+ *
  * Created: 2019-08-07 3:07:50 PM
  * Author : grant jones
  */ 
@@ -29,24 +31,24 @@ int main(void)
     while (1) 
     {
 		//LED ON
-		PORTA.PIN5CTRL = 0x08;  //enables pull up for PIN4 (LED)
+		PORTA.PIN5CTRL = 0x08;		//enables pull up for PIN4 (LED)
 		
-		ADC0.MUXPOS = 0x04;		//sets which pin gets the analog signal (PIN4)
-		ADC0.COMMAND |= 0x01;	//begins single time conversion
+		ADC0.MUXPOS = 0x04;			//sets which pin gets the analog signal (PIN4)
+		ADC0.COMMAND |= 0x01;		//begins single time conversion
 			while (ADC0.COMMAND == 0x01){}
-		ADC_Result = ADC0.RES;	//high and low bytes of 10 bit result
+		ADC_Result = ADC0.RES;		//high and low bytes of 10 bit result
 		Voltage = ADC_Result*5/1023;
 		ADC_Result = -1;
 		_delay_ms(1000);
 		
 		
 		//LED OFF
-		PORTA.PIN5CTRL &= 0x00;  //disables pull up for PIN4
+		PORTA.PIN5CTRL &= 0x00;		//disables pull up for PIN4
 		
 		ADC0.MUXPOS = 0x02;			//sets which pin gets the analog signal (PIN4)
 		ADC0.COMMAND |= 0x01;		//begins single time conversion
 			while (ADC0.COMMAND == 0x01){}
-		ADC_Result = ADC0.RES;	//high and low bytes of 10 bit result
+		ADC_Result = ADC0.RES;		//high and low bytes of 10 bit result
 		Voltage_Current_Sensor = ADC_Result*5/1023;
 		ADC_Result = -1;
 		//_delay_ms(1000);
